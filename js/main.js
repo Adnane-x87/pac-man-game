@@ -28,6 +28,37 @@ window.onload = function() {
     loadImage();
 }
 
+const tileMap = [
+    "XXXXXXXXXXXXXXXXXXX",
+    "X        X        X",
+    "X XX XXX X XXX XX X",
+    "X                 X",
+    "X XX X XXXXX X XX X",
+    "X    X       X    X",
+    "XXXX XXXX XXXX XXXX",
+    "OOOX X       X XOOO",
+    "XXXX X XXrXX X XXXX",
+    "O       bpo       O",
+    "XXXX X XXXXX X XXXX",
+    "OOOX X       X XOOO",
+    "XXXX X XXXXX X XXXX",
+    "X        X        X",
+    "X XX XXX X XXX XX X",
+    "X  X     P     X  X",
+    "XX X X XXXXX X X XX",
+    "X    X   X   X    X",
+    "X XXXXXX X XXXXXX X",
+    "X                 X",
+    "XXXXXXXXXXXXXXXXXXX" 
+];
+
+const walls = new Set();
+const foods = new Set();
+const ghosts = new Set();
+let pacman;
+
+
+
 function loadImage(){
     wallImage = new Image();
     wallImage.src ="./images/wall.png";
@@ -52,3 +83,43 @@ function loadImage(){
 
 }
 
+function loadMap(){
+ walls.clear();
+ foods.clear();
+ ghosts.clear();
+
+ for(let r = 0; r < rowCount; r++){
+   for(let c = 0; c < columnCount; c++){
+    const row = tileMap[r];
+    const tileMapChar = row[c];
+
+    const x = c*titleSize;
+    const y = r*titleSize;
+
+
+    if(tileMapChar == 'X'){// block wall
+        const wall = new block(wallImage , x , y , titleSize , titleSize);
+         walls.add(wall);
+
+    }
+else if(tileMapChar == 'b'){ // blue ghost
+    const ghost = new block(wallImage , x , y,titleSize , titleSize);
+
+}
+   }
+
+ }
+}
+class block {
+    constructor(image , x , y , width , height){
+        this.image = image;
+        this.x = x;
+        this. y = y;
+        this.width = width;
+        this.height = height;
+
+        this.startx = x;
+        this.starty = y;
+
+    }
+}
